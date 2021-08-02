@@ -1,0 +1,64 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ticketing System</title>
+	<link rel="stylesheet" type="text/css" href="{% static '/css/main.css' %}"> 
+</head>
+<body>
+
+<div class="band-header">
+	<header class="site-header">
+		<tr>
+			<h3 id="application-title">IT Service Management</h3>
+			<h5 id="current-tab" style="display: inline-block"><a href="" style="color: white">Home</a></h4>
+			<h5 id="user-tag" style="display: inline-block" float: right>Welcome {{ request.user }}</h4>
+		</tr>
+	</header>
+</div>
+
+
+<div class="main-content">
+	<div class="options">
+	<h4>Overview Console</h4>
+		<label for="show-options">Show</label>
+		<select name="show-options" id="show-options" onchange="location = this.value;">
+			<option value="" selected>Select</option>
+			<option value="http://127.0.0.1:8000/assignedToMyGroup/">Assigned To My Group</option>
+			<option value="http://127.0.0.1:8000/submittedByMe/">Submitted By Me</option>
+			<option value="http://127.0.0.1:8000/assignedToMe/">Assigned To Me</option>
+			<option value="http://127.0.0.1:8000/tickets/">Focused</option>
+			<option value="http://127.0.0.1:8000/showTickets/">Show All Tickets</option>
+		</select>
+		{% comment %}
+		<button id="show-options-button" onclick="location.href='{% url 'view_tickets' %}'">Go!</button>
+		{% endcomment %}		
+
+		<label for="show-company"> Company</label>
+		<select name="show-company" id="show-company">
+		{ #<script type="text/javascript" src="{% static '/js/main.js' %}"></script>#}
+		</select>
+	</div>
+</div>
+
+{% if All_tickets_data %}
+	{% for tick_details in All_tickets_data %}
+
+		<div class="ticket-content">
+			<div class = "ticket">
+				<p>Ticket ID  		:	{{ tick_details.0 }}</p>
+				<p>Title    		:   {{ tick_details.1 }}</p>
+				<p>Summary 			: 	{{ tick_details.2 }}</p>
+				<p>Assigned Engineer: 	{{ tick_details.3 }}</p>
+				<p>Status 			: 	{{ tick_details.5 }}</p>
+				<p>Assignment Group : 	{{ tick_details.6 }}</p>
+			</div>
+			
+		</div>
+	{% endfor %}
+
+{% endif %}
+<script type="text/javascript" src="{% static '/js/main.js' %}"></script>
+</body>
+</html>

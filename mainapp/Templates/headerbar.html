@@ -1,0 +1,15 @@
+{% extends main.html %}
+
+{% block content %}
+
+<div class="band-header">
+	<header class="site-header">
+		<tr>
+			<h3 id="application-title">IT Service Management</h3>
+			<h5 id="current-tab" style="display: inline-block"><a href="" style="color: white">Home</a></h4>
+			<h5 id="user-tag" style="display: inline-block" float: right>Welcome {{ request.user }}</h4>
+		</tr>
+	</header>
+</div>
+
+{% endblock %}
