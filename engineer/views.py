@@ -6,7 +6,7 @@ from django.contrib.auth import authenticate, login, logout
 # Create your views here.
 
 def checkUserCreds(request):
-
+	
 	checkUsername = request.GET['uname']
 	checkPassword = request.GET['psw']
 	
