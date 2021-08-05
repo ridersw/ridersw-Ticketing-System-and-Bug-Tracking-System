@@ -15,8 +15,12 @@ body {
 
 #user-tag {
 	float: right;
-	margin-right: 20px
+	margin-right: 20px;
 }
+
+a, a:visited { 
+    color:white; text-decoration:none; 
+    }
 
 #console-overview {
 	margin-left: 10px;
