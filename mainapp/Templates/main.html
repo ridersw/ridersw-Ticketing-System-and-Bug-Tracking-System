@@ -1,5 +1,7 @@
 {% load static %}
 
+{% include "headerbar.html" %}
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,11 +10,13 @@
 </head>
 <body>
 
+<!--	
+
 <div class="band-header">
 	<header class="site-header">
 		<tr>
 			<h3 id="application-title">IT Service Management</h3>
-			<h5 id="current-tab" style="display: inline-block"><a href="" style="color: white">Home</a></h5>
+			<h5 id="current-tab" style="display: inline-block"><a href="http://127.0.0.1:8000/" style="color: white">Home</a></h5>
 			<h5 id="user-tag" style="display: inline-block" float: right>Welcome {{ request.user }}</h5>
 			<h5 id="user-tag" style="display: inline-block" float: right><a href="http://127.0.0.1:8000/logout_view/" id="logout-link">Logout</a></h5>
 
@@ -20,6 +24,7 @@
 	</header>
 </div>
 
+-->
 
 <div class="main-content">
 	<div class="options">
@@ -55,6 +60,10 @@
 				<p>Assigned Engineer: 	{{ tick_details.3 }}</p>
 				<p>Status 			: 	{{ tick_details.5 }}</p>
 				<p>Assignment Group : 	{{ tick_details.6 }}</p>
+				<form method="POST" action="http://127.0.0.1:8000/ticketDetails/">
+				{% csrf_token %}
+				<button name="ticketID" value={{ tick_details.0 }} onclick="window.location.href='{% url 'ticketDetails' %}'">Show Details</button>
+				</form>
 			</div>
 			
 		</div>

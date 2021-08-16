@@ -1,0 +1,24 @@
+{% include "headerbar.html" %}
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<h1>Ticket Details: </h1>
+
+	<div class="ticket-content">
+		<div class = "ticket">
+			<p>Ticket ID  		:	{{ All_tickets_data.0 }}</p>
+			<p>Title    		:   {{ All_tickets_data.1 }}</p>
+			<p>Summary 			: 	{{ All_tickets_data.2 }}</p>
+			<p>Assigned Engineer: 	{{ All_tickets_data.3 }}</p>
+			<p>Status 			: 	{{ All_tickets_data.5 }}</p>
+			<p>Assignment Group : 	{{ All_tickets_data.6 }}</p>
+		</div>
+			
+	</div>
+</body>
+</html>

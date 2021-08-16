@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, include
 from projects.views import project_homepage
 from mainapp.views import homepage
-from tickets.views import view_tickets, assignedToMyGroup, assignedToMe, submittedByMe, showTickets
+from tickets.views import view_tickets, assignedToMyGroup, assignedToMe, submittedByMe, showTickets, ticketDetails
 from engineer.views import checkUserCreds, logout_view
 
 urlpatterns = [
@@ -31,4 +31,5 @@ urlpatterns = [
     path('showTickets/', showTickets, name="showTickets"),
     path('checkUserCreds/', checkUserCreds),     
     path('logout_view/', logout_view, name="logout_view"),     
+    path(r'ticketDetails/', ticketDetails, name="ticketDetails"),     
 ]
