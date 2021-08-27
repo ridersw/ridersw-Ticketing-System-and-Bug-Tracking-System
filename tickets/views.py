@@ -220,5 +220,37 @@ def ticketDetails(request):
 	return render(request, 'ticketDetails.html', context)	
 
 def createNewTicket(request):
+
+	#ticket_title = request.GET['createNewTicketTitle']
+	#print(f"newTicketTitle: {request.GET['createNewTicketTitle']}")
+	#ticket_summary = request.GET['ticketSummary']
+	#ticket_assignment_group  = request.GET['ticketAssignmentGroup']
+
+	#print(f'ticket_title :{ticket_title}')
+	#print(f'ticket_summary :{ticket_summary}')
+	#print(f'ticket_assignment_group :{ticket_assignment_group}')
+
+	print("In Function createNewTicket")
+
 	return render(request, 'createNewTicket.html')	
 	#return render(request, 'ticketDetails.html')	
+
+def createNewTicketOperation(request):
+	#ticket_title = request.GET['createNewTicketTitle']
+	#print(f"newTicketTitle: {request.GET['createNewTicketTitle']}")
+	#ticket_summary = request.GET['ticketSummary']
+	#ticket_assignment_group  = request.GET['ticketAssignmentGroup']
+
+	#print(f'ticket_title :{ticket_title}')
+	#print(f'ticket_summary :{ticket_summary}')
+	#print(f'ticket_assignment_group :{ticket_assignment_group}')
+
+	print("In Function createNewTicketOperation")
+
+	print(f'request.GET["reateNewTicketTitle"]: {request.GET["createNewTicketTitle"]} ')
+	print(f'ticket_summary: {request.GET["ticketSummary"]} ')
+	 
+	print(f'ticketAssignmentGroup: {request.GET["ticketAssignmentGroup"]} ')
+	
+
+	return render(request, 'ticketDetails.html')

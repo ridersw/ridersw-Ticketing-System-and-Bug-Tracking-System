@@ -7,6 +7,37 @@
 	<title></title>
 </head>
 <body>
-<h1>Create Ticket Page</h1>
+<br>
+<!--
+<form action="/createNewTicket/" method="GET"  name="createNewTicketForm">
+	<label>Title    </label>
+	<input type="text" name="newTicketTitle"></input><br><br>
+	<label>Summary </label><textarea rows="2" cols="25" placeholder="Please write the summary of the issue" name="ticketSummary"></textarea><br><br>
+	<label>Assignment Group</label>
+	<select name="Assignment Group" id="AssignmentGroup" onchange="location = this.value;" name="ticketAssignmentGroup">
+		<option value="">Select</option>
+		<option>ITSecAdmin</option>
+		<option>Operations</option>
+		<option>Network</option>
+		<option>Dev Team</option>
+	</select><br><br>
+	<input type="submit" value="Create">
+</form> -->
+<form action = "/createNewTicketOperation/" method="GET" name="createNewTicketForm">
+	<label>Title: </label>	
+	<input type="text" placeholder="Enter Title" name="createNewTicketTitle" required><br>
+	<label>Summary </label><textarea rows="2" cols="25" placeholder="Please write the summary of the issue" name="ticketSummary"></textarea><br><br>
+	<label>Assignment Group</label>
+	<select name="ticketAssignmentGroup">
+		<option value="">Select</option>
+		<option value="ITSecAdmin">ITSecAdmin</option>
+		<option value="Operations">Operations</option>
+		<option value="Network">Network</option>
+		<option value="Dev Team">Dev Team</option>
+	</select><br><br>
+	<input type="submit" value="Create">
+
+</form>	
+
 </body>
 </html>
