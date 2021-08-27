@@ -33,7 +33,8 @@ def view_tickets(request):
 
 		#unique array
 
-		'All_tickets_data'		: ticket_data
+		'All_tickets_data'		: ticket_data,
+		'current_message'		: "You are Viewing All Tickets"
 	}
 	return render(request, "main.html", context)
 	
@@ -69,7 +70,8 @@ def assignedToMyGroup(request):
 	context = {
 		#unique array
 
-		'All_tickets_data'		: ticket_data
+		'All_tickets_data'		: ticket_data,
+		'current_message'		: "You are Viewing Tickets assigned to your Group"
 	}
 	return render(request, "main.html", context)
 
@@ -170,7 +172,8 @@ def showTickets(request):
 	context = {
 		#unique array
 
-		'All_tickets_data'		: ticket_data
+		'All_tickets_data'		: ticket_data,
+		'current_message'		: "You are Viewing All Tickets"
 	}
 	return render(request, "main.html", context)
 
@@ -215,3 +218,7 @@ def ticketDetails(request):
 	print(f'temp: {temp}')
 
 	return render(request, 'ticketDetails.html', context)	
+
+def createNewTicket(request):
+	return render(request, 'createNewTicket.html')	
+	#return render(request, 'ticketDetails.html')	
