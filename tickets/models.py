@@ -9,6 +9,7 @@ class tickets(models.Model):
 	assignment_group_choices = (('HelpDesk', 'HelpDesk'), ('ITSecAdmin', 'ITSecAdmin'), ('Operations','Operations'), ('Network', 'Network'),('Infrastructure', 'Infrastructure'))
 
 	ticket_id 			= models.PositiveIntegerField(primary_key = True)
+	#ticket_id 			= models.PositiveIntegerField()
 	title 				= models.CharField(max_length = 100)
 	summary				= models.TextField()
 	assigned_engineer	= models.CharField(max_length = 100, default = "Shashi")

@@ -1,9 +1,23 @@
 from django.shortcuts import render
 from .models import tickets
 from engineer.models import Engineer
+from tickets.models import tickets
+import random
 # Create your views here.
 
+Operations = ['Shashi']
+ITSecAdmin = ['Prithvi']
+Network = ['Krishna']
+DevTeam = ['Shubham']
 
+def generateTicketID(request):
+	obj = tickets.objects.all()
+	
+	ticket_array = []	
+	for details in obj:
+		ticket_array.append(int(details.ticket_id))
+	
+	return (max(ticket_array)+1)		
 
 def view_tickets(request):
 	if not request.session.session_key:
@@ -220,37 +234,48 @@ def ticketDetails(request):
 	return render(request, 'ticketDetails.html', context)	
 
 def createNewTicket(request):
-
-	#ticket_title = request.GET['createNewTicketTitle']
-	#print(f"newTicketTitle: {request.GET['createNewTicketTitle']}")
-	#ticket_summary = request.GET['ticketSummary']
-	#ticket_assignment_group  = request.GET['ticketAssignmentGroup']
-
-	#print(f'ticket_title :{ticket_title}')
-	#print(f'ticket_summary :{ticket_summary}')
-	#print(f'ticket_assignment_group :{ticket_assignment_group}')
-
 	print("In Function createNewTicket")
 
 	return render(request, 'createNewTicket.html')	
 	#return render(request, 'ticketDetails.html')	
 
 def createNewTicketOperation(request):
-	#ticket_title = request.GET['createNewTicketTitle']
-	#print(f"newTicketTitle: {request.GET['createNewTicketTitle']}")
-	#ticket_summary = request.GET['ticketSummary']
-	#ticket_assignment_group  = request.GET['ticketAssignmentGroup']
+	if not request.session.session_key:
+		return render(request, "loginPage.html")
+	obj = tickets.objects.all()
 
-	#print(f'ticket_title :{ticket_title}')
-	#print(f'ticket_summary :{ticket_summary}')
-	#print(f'ticket_assignment_group :{ticket_assignment_group}')
+	tempID = 0
 
-	print("In Function createNewTicketOperation")
-
-	print(f'request.GET["reateNewTicketTitle"]: {request.GET["createNewTicketTitle"]} ')
-	print(f'ticket_summary: {request.GET["ticketSummary"]} ')
-	 
-	print(f'ticketAssignmentGroup: {request.GET["ticketAssignmentGroup"]} ')
 	
 
-	return render(request, 'ticketDetails.html')
+	tempID = generateTicketID(request)
+
+
+			
+	ticket_id	= tempID
+	ticket_title = request.GET['createNewTicketTitle']
+	ticket_summary = request.GET['ticketSummary']
+	assigned_engineer = 'Shashi'
+	ticket_assignment_group  = request.GET['ticketAssignmentGroup']
+	ticket_status = "Open"
+
+	ticket_data = [ticket_id, ticket_title, ticket_summary, assigned_engineer, None,ticket_status, ticket_assignment_group]	
+
+	print(ticket_data)
+
+	#try:
+	#	tickets.objects.create(ticket_id = ticket_id, title = ticket_title, summary = ticket_summary, assigned_engineer = assigned_engineer, status = 'Open', assignment_group = 'Operations', submitted_by = request.user)	
+	msg = 'Ticket Created Successfully'
+	#except:
+	#	msg = 'Error Occured in Creating Ticket'
+	tickets.objects.create(ticket_id = ticket_id, title = ticket_title, summary = ticket_summary, assigned_engineer = assigned_engineer, status = 'Open', assignment_group = 'Operations', submitted_by = request.user)	
+
+	context = {
+		#unique array
+
+		'All_tickets_data'		: ticket_data,
+		'message'			: msg
+	}		
+	
+
+	return render(request, 'ticketDetails.html', context)
