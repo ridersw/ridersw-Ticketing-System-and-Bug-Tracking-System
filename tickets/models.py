@@ -17,3 +17,4 @@ class tickets(models.Model):
 	status				= models.CharField(max_length = 20, choices = status_choices, default = 'Open')
 	assignment_group	= models.CharField(max_length = 20, choices = assignment_group_choices, default = 'HelpDesk')
 	submitted_by		= models.CharField(max_length = 100, default='Guest')
+	#comments			= models.CharField(max_length = 2000, default = "")

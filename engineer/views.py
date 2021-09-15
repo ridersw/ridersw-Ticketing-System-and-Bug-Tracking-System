@@ -7,8 +7,8 @@ from django.contrib.auth import authenticate, login, logout
 
 def checkUserCreds(request):
 	
-	checkUsername = request.GET['uname']
-	checkPassword = request.GET['psw']
+	checkUsername = request.POST['uname']
+	checkPassword = request.POST['psw']
 	
 	user = authenticate(request, username=checkUsername, password=checkPassword)
 	# print(f'User: {user}')

@@ -8,22 +8,8 @@
 </head>
 <body>
 <br>
-<!--
-<form action="/createNewTicket/" method="GET"  name="createNewTicketForm">
-	<label>Title    </label>
-	<input type="text" name="newTicketTitle"></input><br><br>
-	<label>Summary </label><textarea rows="2" cols="25" placeholder="Please write the summary of the issue" name="ticketSummary"></textarea><br><br>
-	<label>Assignment Group</label>
-	<select name="Assignment Group" id="AssignmentGroup" onchange="location = this.value;" name="ticketAssignmentGroup">
-		<option value="">Select</option>
-		<option>ITSecAdmin</option>
-		<option>Operations</option>
-		<option>Network</option>
-		<option>Dev Team</option>
-	</select><br><br>
-	<input type="submit" value="Create">
-</form> -->
-<form action = "/createNewTicketOperation/" method="GET" name="createNewTicketForm">
+<form action = "/createNewTicketOperation/" method="POST" name="createNewTicketForm">
+	{% csrf_token %}		
 	<label>Title: </label>	
 	<input type="text" placeholder="Enter Title" name="createNewTicketTitle" required><br>
 	<label>Summary </label><textarea rows="2" cols="25" placeholder="Please write the summary of the issue" name="ticketSummary"></textarea><br><br>
@@ -35,7 +21,9 @@
 		<option value="Network">Network</option>
 		<option value="DevTeam">Dev Team</option>
 	</select><br><br>
-	<input type="submit" value="Create">
+	<!-- <input type="text" name="com"> -->
+	<input type="submit" value="Create" name="createNewTicketFormButton">
+
 
 </form>	
 

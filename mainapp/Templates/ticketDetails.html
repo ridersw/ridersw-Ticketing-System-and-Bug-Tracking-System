@@ -7,19 +7,27 @@
 	<title></title>
 </head>
 <body>
-
 	<h1>{{ message }}: </h1>
 
-	<div class="ticket-content">
-		<div class = "ticket">
-			<p>Ticket ID  		:	{{ All_tickets_data.0 }}</p>
-			<p>Title    		:   {{ All_tickets_data.1 }}</p>
-			<p>Summary 			: 	{{ All_tickets_data.2 }}</p>
-			<p>Assigned Engineer: 	{{ All_tickets_data.3 }}</p>
-			<p>Status 			: 	{{ All_tickets_data.5 }}</p>
-			<p>Assignment Group : 	{{ All_tickets_data.6 }}</p>
+	<form action = "/createNewTicketOperation/" method="POST" name="updateTicketForm">
+	{% csrf_token %}
+		<div class="ticket-content">
+			<div class = "ticket">
+				Ticket ID:<input type="label" name="ticketID" value={{ All_tickets_data.0 }}></input><br>
+				
+				Title:<input type="text" value="{{ All_tickets_data.1 }}" name="title"></input><br>
+				
+				Summary:<input type="text" value="{{ All_tickets_data.2 }}" name="summary"></input><br>
+				
+				Assigned Engineer: <input type="label" value="{{ All_tickets_data.3 }}" name="assignedEngineer" readonly="readonly"/><br>
+				
+				Status <input type="label" value="{{ All_tickets_data.5 }}" name="status" ></input><br>
+				
+				Assignment Group <input type="label" value="{{ All_tickets_data.6 }}" name="assignmentGroup"></input><br>
+				
+				<input type="submit" name="updateTicketFormButton" value="Update"></input><br>
+			</div>
 		</div>
-			
-	</div>
+	</form>		
 </body>
 </html>

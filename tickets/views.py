@@ -12,7 +12,7 @@ DevTeam = ['Shubham']
 
 def generateTicketID(request):
 	obj = tickets.objects.all()
-	
+
 	ticket_array = []	
 	for details in obj:
 		ticket_array.append(int(details.ticket_id))
@@ -224,7 +224,7 @@ def ticketDetails(request):
 
 	context = {
 		#unique array
-
+		'message'				: 'Ticket Details',
 		'All_tickets_data'		: temp
 	}
 
@@ -240,42 +240,94 @@ def createNewTicket(request):
 	#return render(request, 'ticketDetails.html')	
 
 def createNewTicketOperation(request):
+
+	#print(request.GET['createNewTicketButtonID'])	
+
+	#print(f"if 'createNewTicketFormButton' in request.POST: {'createNewTicketFormButton' in request.POST}")
+
+	print('Triggered Function createNewTicket')
+
 	if not request.session.session_key:
 		return render(request, "loginPage.html")
-	obj = tickets.objects.all()
-
-	tempID = 0
-
-	
-
-	tempID = generateTicketID(request)
 
 
-			
-	ticket_id	= tempID
-	ticket_title = request.GET['createNewTicketTitle']
-	ticket_summary = request.GET['ticketSummary']
-	assigned_engineer = 'Shashi'
-	ticket_assignment_group  = request.GET['ticketAssignmentGroup']
-	ticket_status = "Open"
 
-	ticket_data = [ticket_id, ticket_title, ticket_summary, assigned_engineer, None,ticket_status, ticket_assignment_group]	
+	if 'createNewTicketFormButton' in request.POST:	
 
-	print(ticket_data)
 
-	#try:
-	#	tickets.objects.create(ticket_id = ticket_id, title = ticket_title, summary = ticket_summary, assigned_engineer = assigned_engineer, status = 'Open', assignment_group = 'Operations', submitted_by = request.user)	
-	msg = 'Ticket Created Successfully'
-	#except:
-	#	msg = 'Error Occured in Creating Ticket'
-	tickets.objects.create(ticket_id = ticket_id, title = ticket_title, summary = ticket_summary, assigned_engineer = assigned_engineer, status = 'Open', assignment_group = 'Operations', submitted_by = request.user)	
 
-	context = {
-		#unique array
+		obj = tickets.objects.all()
+		tempID = generateTicketID(request)
+				
+		ticket_id	= tempID
+		ticket_title = request.POST['createNewTicketTitle']
+		ticket_summary = request.POST['ticketSummary']
+		assigned_engineer = 'Shashi'
+		ticket_assignment_group  = request.POST['ticketAssignmentGroup']
+		ticket_status = "Open"
 
-		'All_tickets_data'		: ticket_data,
-		'message'			: msg
-	}		
-	
+		ticket_data = [ticket_id, ticket_title, ticket_summary, assigned_engineer, None,ticket_status, ticket_assignment_group]	
 
-	return render(request, 'ticketDetails.html', context)
+		print(ticket_data)
+
+		msg = 'Ticket Created Successfully'
+
+		tickets.objects.create(ticket_id = ticket_id, title = ticket_title, summary = ticket_summary, assigned_engineer = assigned_engineer, status = 'Open', assignment_group = 'Operations', submitted_by = request.user)	
+
+		context = {
+			#unique array
+
+			'All_tickets_data'		: ticket_data,
+			'message'			: msg
+		}		
+		
+		
+
+		return render(request, 'ticketDetails.html', context)
+
+
+
+	elif 'updateTicketFormButton' in request.POST:
+
+		print(list(request.POST.items()))
+
+
+
+		ticket_id	= request.POST['ticketID']
+		ticket_title = request.POST['title']
+		ticket_summary = request.POST['summary']
+		assigned_engineer = request.POST['assignedEngineer']
+		status = request.POST['status']
+		assignmentGroup = request.POST['assignmentGroup']
+
+
+		print(f"ticket_id: {ticket_id}")
+		print(f"ticket_title: {ticket_title}")
+		print(f"ticket_summary: {ticket_summary}")
+		print(f"assigned_engineer: {assigned_engineer}")
+		print(f"status: {status}")
+		print(f"assignmentGroup: {assignmentGroup}")
+
+
+		ticket_data = [ticket_id, ticket_title, ticket_summary, assigned_engineer, status, assignmentGroup]
+
+		try:
+
+			tickets.objects.filter(ticket_id = ticket_id).update(title = ticket_title, summary = ticket_summary)	
+
+			context = {
+			#unique array
+				'All_tickets_data'		: ticket_data,
+				'message'			: "Ticket Updated Successfully"
+			}
+
+		except:
+
+			context = {
+			#unique array
+				'All_tickets_data'		: ticket_data,
+				'message'			: "Ticket Update Operation Failed. Please Contact Admin"
+			}
+				
+
+		return render(request, 'ticketDetails.html', context)		
