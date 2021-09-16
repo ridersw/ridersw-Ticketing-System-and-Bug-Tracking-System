@@ -35,3 +35,4 @@ urlpatterns = [
     path('createNewTicket/', createNewTicket, name="createNewTicket"),     
     path('createNewTicketOperation/', createNewTicketOperation, name="createNewTicketOperation"),     
 ]
+

@@ -3,6 +3,7 @@ from .models import tickets
 from engineer.models import Engineer
 from tickets.models import tickets
 import random
+from datetime import datetime
 # Create your views here.
 
 Operations = ['Shashi']
@@ -38,6 +39,8 @@ def view_tickets(request):
 			temp.append(details.focused)
 			temp.append(details.status)
 			temp.append(details.assignment_group)
+			temp.append(details.comments)
+
 
 
 			ticket_data.append(temp)
@@ -77,6 +80,7 @@ def assignedToMyGroup(request):
 			temp.append(details.focused)
 			temp.append(details.status)
 			temp.append(details.assignment_group)
+			temp.append(details.comments)
 
 			ticket_data.append(temp)
 			temp = []
@@ -114,6 +118,7 @@ def assignedToMe(request):
 			temp.append(details.focused)
 			temp.append(details.status)
 			temp.append(details.assignment_group)
+			temp.append(details.comments)
 
 			ticket_data.append(temp)
 			temp = []
@@ -147,6 +152,7 @@ def submittedByMe(request):
 			temp.append(details.focused)
 			temp.append(details.status)
 			temp.append(details.assignment_group)
+			temp.append(details.comments)
 
 			ticket_data.append(temp)
 			temp = []
@@ -179,6 +185,7 @@ def showTickets(request):
 		temp.append(details.focused)
 		temp.append(details.status)
 		temp.append(details.assignment_group)
+		temp.append(details.comments)
 
 		ticket_data.append(temp)
 		temp = []
@@ -206,7 +213,7 @@ def ticketDetails(request):
 
 	for details in obj:
 		#add data to unique array
-		print(f'Comparing {type(details.ticket_id)} and {type(refTicketID)}')
+		#print(f'Comparing {type(details.ticket_id)} and {type(refTicketID)}')
 		if details.ticket_id == refTicketID:
 
 			temp.append(details.ticket_id)
@@ -216,6 +223,7 @@ def ticketDetails(request):
 			temp.append(details.focused)
 			temp.append(details.status)
 			temp.append(details.assignment_group)
+			temp.append(details.comments)
 
 			ticket_data.append(temp)
 			break
@@ -300,20 +308,56 @@ def createNewTicketOperation(request):
 		status = request.POST['status']
 		assignmentGroup = request.POST['assignmentGroup']
 
+		comments = []
+		comments.append(request.POST['comments'])
 
+		addionalComments = request.POST['additionalComments']
+
+		if addionalComments:
+
+			try: 
+				tempUser = str(request.user)	
+				print(f'Updated by request.user :{tempUser}')
+
+			except:
+				tempUser = str(assigned_engineer)
+				print(f'Updated by assignedEngineer :{tempUser}')	
+				
+			tempComment = []
+			tempComment.append('Date: ' + datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+			tempComment.append('Comment: ' + addionalComments)
+
+			if tempUser:
+				tempComment.append('Engineer: ' + tempUser)
+
+			comments.append(tempComment)
+
+			addionalComments = ""
+		
 		print(f"ticket_id: {ticket_id}")
 		print(f"ticket_title: {ticket_title}")
 		print(f"ticket_summary: {ticket_summary}")
 		print(f"assigned_engineer: {assigned_engineer}")
 		print(f"status: {status}")
 		print(f"assignmentGroup: {assignmentGroup}")
+		print(f'comments: {comments}')
 
 
-		ticket_data = [ticket_id, ticket_title, ticket_summary, assigned_engineer, status, assignmentGroup]
+		ticket_data = [ticket_id, ticket_title, ticket_summary, assigned_engineer,"" ,status, assignmentGroup, comments]
 
 		try:
 
-			tickets.objects.filter(ticket_id = ticket_id).update(title = ticket_title, summary = ticket_summary)	
+			#temp.append(details.ticket_id)
+			#temp.append(details.title)
+			#temp.append(details.summary)
+			#temp.append(details.assigned_engineer)
+			#temp.append(details.focused)
+			#temp.append(details.status)
+			#temp.append(details.assignment_group)
+			#temp.append(details.comments)
+
+
+			tickets.objects.filter(ticket_id = ticket_id).update(title = ticket_title, summary = ticket_summary, comments = comments)	
 
 			context = {
 			#unique array
@@ -330,4 +374,4 @@ def createNewTicketOperation(request):
 			}
 				
 
-		return render(request, 'ticketDetails.html', context)		
+		return render(request, 'ticketDetails.html', context)

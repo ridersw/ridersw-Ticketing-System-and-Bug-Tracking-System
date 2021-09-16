@@ -15,15 +15,30 @@
 			<div class = "ticket">
 				Ticket ID:<input type="label" name="ticketID" value={{ All_tickets_data.0 }}></input><br>
 				
-				Title:<input type="text" value="{{ All_tickets_data.1 }}" name="title"></input><br>
+				Title:<input type="text" value="{{ All_tickets_data.1 }}" name="title"></input><br><br>
 				
-				Summary:<input type="text" value="{{ All_tickets_data.2 }}" name="summary"></input><br>
+				Summary:<input type="text" value="{{ All_tickets_data.2 }}" name="summary"></input><br><br>
 				
-				Assigned Engineer: <input type="label" value="{{ All_tickets_data.3 }}" name="assignedEngineer" readonly="readonly"/><br>
+				Assigned Engineer: <input type="label" value="{{ All_tickets_data.3 }}" name="assignedEngineer" readonly="readonly"/><br><br>
 				
-				Status <input type="label" value="{{ All_tickets_data.5 }}" name="status" ></input><br>
+				Status <select name="status">
+					<option value="open">Open</option>
+					<option value="inProgress ">In Progress</option>
+					<option value="pending">Pending</option>
+					<option value="closed">Closed</option>
+				</select><br>
+
+
+
+				<input type="label" value="{{ All_tickets_data.5 }}" name="status" ></input><br><br>
 				
-				Assignment Group <input type="label" value="{{ All_tickets_data.6 }}" name="assignmentGroup"></input><br>
+				Assignment Group <input type="label" value="{{ All_tickets_data.6 }}" name="assignmentGroup"></input><br><br>
+
+				Comments <textarea name="comments" cols="50" rows="10" readonly="readonly">{{ All_tickets_data.7 }}</textarea><br><br>
+
+				<!-- <input type="label" value="{{ All_tickets_data.7 }}" name="comments" readonly="readonly"/><br> -->
+
+				Add Additional Comments <input type="text" value = "" name="additionalComments" /><br><br>
 				
 				<input type="submit" name="updateTicketFormButton" value="Update"></input><br>
 			</div>
