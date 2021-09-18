@@ -7,7 +7,7 @@
 	<title></title>
 </head>
 <body>
-	<h1>{{ message }}: </h1>
+	<h1>{{ message }} </h1>
 
 	<form action = "/createNewTicketOperation/" method="POST" name="updateTicketForm">
 	{% csrf_token %}
@@ -39,6 +39,8 @@
 				<!-- <input type="label" value="{{ All_tickets_data.7 }}" name="comments" readonly="readonly"/><br> -->
 
 				Add Additional Comments <input type="text" value = "" name="additionalComments" /><br><br>
+
+				<input type="submit" name="requestUpdate" value="Request Update"></button><br> 
 				
 				<input type="submit" name="updateTicketFormButton" value="Update"></input><br>
 			</div>

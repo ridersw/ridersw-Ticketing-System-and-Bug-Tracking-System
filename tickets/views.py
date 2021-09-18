@@ -4,6 +4,7 @@ from engineer.models import Engineer
 from tickets.models import tickets
 import random
 from datetime import datetime
+from tickets.mailUtility import getUpdate
 # Create your views here.
 
 Operations = ['Shashi']
@@ -297,10 +298,6 @@ def createNewTicketOperation(request):
 
 	elif 'updateTicketFormButton' in request.POST:
 
-		print(list(request.POST.items()))
-
-
-
 		ticket_id	= request.POST['ticketID']
 		ticket_title = request.POST['title']
 		ticket_summary = request.POST['summary']
@@ -333,30 +330,11 @@ def createNewTicketOperation(request):
 			comments.append(tempComment)
 
 			addionalComments = ""
-		
-		print(f"ticket_id: {ticket_id}")
-		print(f"ticket_title: {ticket_title}")
-		print(f"ticket_summary: {ticket_summary}")
-		print(f"assigned_engineer: {assigned_engineer}")
-		print(f"status: {status}")
-		print(f"assignmentGroup: {assignmentGroup}")
-		print(f'comments: {comments}')
 
 
 		ticket_data = [ticket_id, ticket_title, ticket_summary, assigned_engineer,"" ,status, assignmentGroup, comments]
 
 		try:
-
-			#temp.append(details.ticket_id)
-			#temp.append(details.title)
-			#temp.append(details.summary)
-			#temp.append(details.assigned_engineer)
-			#temp.append(details.focused)
-			#temp.append(details.status)
-			#temp.append(details.assignment_group)
-			#temp.append(details.comments)
-
-
 			tickets.objects.filter(ticket_id = ticket_id).update(title = ticket_title, summary = ticket_summary, comments = comments)	
 
 			context = {
@@ -375,3 +353,44 @@ def createNewTicketOperation(request):
 				
 
 		return render(request, 'ticketDetails.html', context)
+
+	elif "requestUpdate" in request.POST:
+
+		obj = tickets.objects.all()
+
+		ticket_id	= request.POST['ticketID']
+		ticket_title = request.POST['title']
+		ticket_summary = request.POST['summary']
+		assigned_engineer = request.POST['assignedEngineer']
+		status = request.POST['status']
+		assignmentGroup = request.POST['assignmentGroup']
+		comments = request.POST['comments']
+
+		engineerDetails = Engineer.objects.get(name=assigned_engineer)
+		engineer_email = engineerDetails.emailID
+
+		#print(engineer_email)
+
+		user_name = request.user
+
+		#reqUp = getUpdate(ticket_ID, engineer_ID, engineer_email, assigned_engineer, user_name, ticket_title)
+		reqUp = getUpdate(ticket_id, ticket_title, assigned_engineer, engineer_email, user_name)
+
+		ticket_data = [ticket_id, ticket_title, ticket_summary, assigned_engineer,"" ,status, assignmentGroup, comments]
+
+		if reqUp:
+
+			context = {
+				'All_tickets_data'		: ticket_data,
+				'message'			: "Update Request Mail Sent Successfully"	
+			}
+
+			return render(request, 'ticketDetails.html', context)
+
+		else:
+			context = {
+				'All_tickets_data'		: ticket_data,
+				'message'			: "Update Requested Failed. Please Contact Admin"	
+			}		
+
+			return render(request, 'ticketDetails.html', context)

@@ -1,0 +1,3 @@
+password = "LondonParis#1"
+
+fromEmail = "ticketingtoolDjango@gmail.com"
