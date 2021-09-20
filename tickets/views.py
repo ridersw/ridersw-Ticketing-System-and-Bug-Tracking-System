@@ -394,3 +394,11 @@ def createNewTicketOperation(request):
 			}		
 
 			return render(request, 'ticketDetails.html', context)
+
+def UIDashboard(request):
+
+	context = {
+		
+	}
+
+	return render(request, 'UIDashboard.html', context) 				

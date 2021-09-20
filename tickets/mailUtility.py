@@ -1,8 +1,15 @@
 import pandas as pd
 import smtplib
-from email.message import EmailMessage
+#from email.message import EmailMessage
 import time
 import sys
+
+#try:
+#    from email.message import EmailMessage
+#except:
+#    print('The message txt not found')
+#    print('Please create message.txt and store your message as "messages" ')         
+
 
 
 def getUpdate(ticket_ID, title, assigned_engineer, engineer_email, user_name):
