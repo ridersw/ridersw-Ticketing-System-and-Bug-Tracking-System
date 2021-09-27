@@ -5,6 +5,7 @@ from tickets.models import tickets
 import random
 from datetime import datetime
 from tickets.mailUtility import getUpdate
+import datetime
 # Create your views here.
 
 Operations = ['Shashi']
@@ -13,6 +14,7 @@ Network = ['Krishna']
 DevTeam = ['Shubham']
 
 def generateTicketID(request):
+
 	obj = tickets.objects.all()
 
 	ticket_array = []	
@@ -24,8 +26,10 @@ def generateTicketID(request):
 def view_tickets(request):
 	if not request.session.session_key:
 		return render(request, "loginPage.html")
-	obj = tickets.objects.all()
 
+	t1 = time.time()	
+	obj = tickets.objects.all()
+	print(f"Time Required: {time.time() - t1}" )
 	#unique Array
 	ticket_data = []
 	temp = []
@@ -54,6 +58,7 @@ def view_tickets(request):
 		'All_tickets_data'		: ticket_data,
 		'current_message'		: "You are Viewing All Tickets"
 	}
+	print(f'length: {len(ticket_data)}')
 	return render(request, "main.html", context)
 	
 def assignedToMyGroup(request):
@@ -169,7 +174,10 @@ def submittedByMe(request):
 def showTickets(request):
 	if not request.session.session_key:
 		return render(request, "loginPage.html")
+	
+	t1 = datetime.datetime.now()	
 	obj = tickets.objects.all()
+	print(f"Time Required: {datetime.datetime.now() - t1}" )
 
 	#unique Array
 
